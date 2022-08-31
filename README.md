@@ -12,7 +12,7 @@
   - prefix-servername-99.domain.com
   
   You can validate a directory with inventories or 1 inventory by itself.
-  The program won't pause on each failed file, but instead will tell you the first error found in each file.
+  The program won't pause on each failed file, but instead will tell you the first error found in each file at the end of the process.
   Feel free to use the fail inventories under the inventories folder for testing.
   ##### Parameters
   * --path <path_to_folder/path_to_file>
