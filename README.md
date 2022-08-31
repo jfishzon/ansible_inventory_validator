@@ -1,7 +1,7 @@
   # Ansible INI Inventory Validator
   ### Prerequisites
   - Python 3.10
-  #### Video Demo:  <URL HERE>
+  #### Video Demo:  [https://youtu.be/qM3X74onAuQ](https://youtu.be/qM3X74onAuQ)
   #### Description:
   The Ansible INI Inventory Validator lets you make sure that the inventory is up to standard using your own regex.
   If you don't want to specify your own regex, the default regex of ^[a-zA-Z]*-[a-zA-Z]*-[0-9]{2}\.[a-zA-Z]*\.[a-zA-Z]*$ will be applied.
