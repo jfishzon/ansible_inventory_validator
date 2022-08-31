@@ -24,6 +24,6 @@
   Required: False
 
   ##### Examples:
-  ansible_inventory_validator.py --path /etc/ansible/inventory/all_servers.ini --regex [0-9]{2}-[a-zA-Z]*\.com
-  ansible_inventory_validator.py --path /etc/ansible/inventory/ --regex [0-9]{2}-[a-zA-Z]*\.com
-  ansible_inventory_validator.py --path /etc/ansible/inventory/
+  - ansible_inventory_validator.py --path /etc/ansible/inventory/all_servers.ini --regex [0-9]{2}-[a-zA-Z]*\.com
+  - ansible_inventory_validator.py --path /etc/ansible/inventory/ --regex [0-9]{2}-[a-zA-Z]*\.com
+  - ansible_inventory_validator.py --path /etc/ansible/inventory/
