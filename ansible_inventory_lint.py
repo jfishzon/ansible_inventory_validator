@@ -28,6 +28,10 @@ class LintInventory:
                         self.hosts[line_num] = line
                     line_num += 1
             self.file_str = "".join(self.file_dict.values())
+            # get values which are also group names in inventory and remove them from self.hosts dictionary.
+            to_delete = [line_num for line_num, host in self.hosts.items() if f'[{host.strip()}]\n' in self.groups.values()]
+            for key in to_delete: del self.hosts[key]
+
         except FileNotFoundError:
             raise FileNotFoundError(f'No such file as {self.file}')
 
@@ -92,14 +96,14 @@ def test_lint_rules(inventory, lint_rules):
                 for item in caught:
                     for line_num, line in inventory.file_dict.items():
                         if line == item and line_num not in caught_lines.keys():
-                            caught_lines[line_num] = line
+                            caught_lines[line_num] = line.strip('\n')
             else:
                 # count characters
                 char_count = -1
                 for line_num, line in inventory.file_dict.items():
                     char_count += len(line)
                     if caught.span()[0] < char_count <= caught.span()[1]:
-                        caught_lines[line_num] = line
+                        caught_lines[line_num] = line.strip('\n')
                         break
             # add everything caught to the inventory
             inventory.caught_rules[rule] = caught_lines
