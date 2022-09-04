@@ -2,7 +2,6 @@ import os
 import re
 import sys
 import argparse
-#TODO rules, rules exclusions, etc..
 
 
 # colors for printing
@@ -16,6 +15,7 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
 
 # LintInventory object to hold data on each inventory
 class LintInventory:
@@ -154,6 +154,7 @@ def test_lint_rules(inventory, lint_rules):
             inventory.caught_rules[rule] = caught_lines
     return error_exists
 
+
 def main():
     # initialize static vars & args
     inventories = []
@@ -204,6 +205,7 @@ def main():
     # exit with error
     if error_exists:
         sys.exit(1)
+
 
 def check_path(path):
     """
