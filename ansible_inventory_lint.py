@@ -40,7 +40,7 @@ class LintInventory:
                     # populate everything in self.file_dict
                     self.file_dict[line_num] = line
                     # check for groups or hosts
-                    if '[' in line or ']' in line:
+                    if line.startswith('[') or line.endswith(']'):
                         self.groups[line_num] = line
                     elif line.strip() != '' and '#' not in line and '=' not in line:
                         self.hosts[line_num] = line
@@ -48,10 +48,11 @@ class LintInventory:
             # convert to a string to regex on later
             self.file_str = "".join(self.file_dict.values())
             # get values which are also group names in inventory and remove them from self.hosts dictionary.
-            to_delete = [line_num for line_num, host in self.hosts.items() if f'[{host.strip()}]\n' in self.groups.values()]
+            to_delete = set([line_num for line_num, host in self.hosts.items() for group in self.groups.values() if host.strip() in group])
             for key in to_delete: del self.hosts[key]
         except FileNotFoundError:
             raise FileNotFoundError(f'No such file as {self.file}')
+
 
 # LintRule object to hold data over each rule
 class LintRule:
@@ -117,7 +118,7 @@ def test_lint_rules(inventory, lint_rules):
     """
     check which rules catch on inventory, populate inventory.caught_rules with every rule caught
     :param inventory: LintInventory --> a populated LintInventory Object
-    :param lint_rules: List --> list of LintRule onjects
+    :param lint_rules: List --> list of LintRule objects
     :return Boolean --> True or False if any rules that were caught were errors
     """
     for rule in lint_rules:
@@ -161,8 +162,8 @@ def main():
     arg_parser.add_argument('--exclude', help='rules to exclude from validation. comma separated', required=False, type=str, default='')
     arg_parser.add_argument('--regex', type=str,
                             help='Regex to apply on all hosts which are not children or vars. By default uses:'
-                                '^[a-zA-Z]*-[a-zA-Z]*-[0-9]{2}\.[a-zA-Z]*\.[a-zA-Z]*$',
-                            default='^[a-zA-Z]*-[a-zA-Z]*-[0-9]{2}\.[a-zA-Z]*\.[a-zA-Z]*$'
+                                '^[a-zA-Z]*-[a-zA-Z0-9]*-[\[]?[0-9]{2}[:]?[0-9]{0,2}[\]]?\.[a-zA-Z0-9-]*\.[a-zA-Z]*[\s]*$',
+                            default='^[a-zA-Z]*-[a-zA-Z0-9]*-[\[]?[0-9]{2}[:]?[0-9]{0,2}[\]]?\.[a-zA-Z0-9-]*\.[a-zA-Z]*[\s]*$'
                             )
     args = arg_parser.parse_args()
     args.exclude = [rule_num for rule_num in args.exclude.split(',')]
