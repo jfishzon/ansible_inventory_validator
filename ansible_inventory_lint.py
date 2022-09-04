@@ -14,7 +14,7 @@ class LintInventory:
         self.groups = {}
         self.hosts = {}
         self.parse_inventory()
-        self.caught_rules = []
+        self.caught_rules = {}
 
     def parse_inventory(self):
         try:
@@ -86,14 +86,25 @@ def test_lint_rules(inventory, lint_rules):
             caught = list(filter(rule.regex.match, inventory.file_dict.values()))
         elif rule.impacts == "general-all":
             caught = rule.regex.search(inventory.file_str)
-            try:
-                caught = caught.group()
-            except AttributeError:
-                pass
         if caught:
-            inventory.caught_rules.append(rule)
-    for caught_rule in inventory.caught_rules:
-        print(caught_rule)
+            caught_lines = {}
+            if rule.impacts in ['host', 'group', 'general-line']:
+                for item in caught:
+                    for line_num, line in inventory.file_dict.items():
+                        if line == item and line_num not in caught_lines.keys():
+                            caught_lines[line_num] = line
+            else:
+                # count characters
+                char_count = -1
+                for line_num, line in inventory.file_dict.items():
+                    char_count += len(line)
+                    if caught.span()[0] < char_count <= caught.span()[1]:
+                        caught_lines[line_num] = line
+                        break
+            # add everything caught to the inventory
+            inventory.caught_rules[rule] = caught_lines
+    # for caught_rule, lines in inventory.caught_rules.items():
+    #     print(caught_rule, lines)
 
 
 def main():
@@ -117,6 +128,12 @@ def main():
     if path_type == 'file':
         inventory = LintInventory(args.path)
         test_lint_rules(inventory, lint_rules)
+
+    if inventory.caught_rules:
+        for rule_caught, lines in inventory.caught_rules.items():
+            for line_num, line in lines.items():
+                print(f'{rule_caught}, for line {line_num}:"{line}"')
+
 
 def check_path(path):
     """
