@@ -85,14 +85,16 @@ class LintRule:
             return '\033[91m'
 
 
-def populate_rules(user_rule, to_exclude):
+def populate_rules(to_exclude, user_rule=""):
     """
     Reads all rules from rules folders and insert them into rules list
     :param user_rule: LintRule --> LintRule Object of regex passed from the user/default
     :param to_exclude: List --> list of rule numbers to exclude
     :return: List --> rules list
     """
-    rules = [user_rule]
+    rules = []
+    if user_rule:
+        rules.append(user_rule)
     for path, folders, files in os.walk('rules'):
         if path != 'rules':
             for file in files:
@@ -161,6 +163,8 @@ def main():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('--path', help='path to config file or folder', required=True, type=str)
     arg_parser.add_argument('--exclude', help='rules to exclude from validation. comma separated', required=False, type=str, default='')
+    arg_parser.add_argument('--no-regex','-n', action='store_true')
+
     arg_parser.add_argument('--regex', type=str,
                             help='Regex to apply on all hosts which are not children or vars. By default uses:'
                                 '^[a-zA-Z]*-[a-zA-Z0-9]*-[\[]?[0-9]{2}[:]?[0-9]{0,2}[\]]?\.[a-zA-Z0-9-]*\.[a-zA-Z]*[\s]*$',
@@ -170,15 +174,18 @@ def main():
     args.exclude = [rule_num for rule_num in args.exclude.split(',')]
     # check path validity and user Regex Validity
     path_type = check_path(args.path)
-    user_lint_rule = LintRule(
-                        impacts='host',
-                        level='ERROR',
-                        name='USER DEFINED REGEX',
-                        num='000',
-                        regex=args.regex
-                        )
-    # populate all lint rules including user lint rule
-    lint_rules = populate_rules(user_lint_rule, args.exclude)
+    if args.no_regex:
+        lint_rules = populate_rules(to_exclude=args.exclude)
+    else:
+        user_lint_rule = LintRule(
+                            impacts='host',
+                            level='ERROR',
+                            name='USER DEFINED REGEX',
+                            num='000',
+                            regex=args.regex
+                            )
+        # populate all lint rules including user lint rule
+        lint_rules = populate_rules(user_lint_rule, args.exclude)
     # add LintInventory objects to inventories list
     if path_type == 'file':
         inventory = LintInventory(args.path)
