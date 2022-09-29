@@ -163,6 +163,8 @@ def main():
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('--path', help='path to config file or folder', required=True, type=str)
     arg_parser.add_argument('--exclude', help='rules to exclude from validation. comma separated', required=False, type=str, default='')
+    arg_parser.add_argument('--exclude-invs', help='inventory files pattern to exclude from validation. comma separated', required=False,
+                            type=str, default='')
     arg_parser.add_argument('--no-regex','-n', action='store_true')
 
     arg_parser.add_argument('--regex', type=str,
@@ -172,6 +174,8 @@ def main():
                             )
     args = arg_parser.parse_args()
     args.exclude = [rule_num for rule_num in args.exclude.split(',')]
+    args.exclude_invs = [re.compile(f'.*{inv_pattern}.*') for inv_pattern in args.exclude_invs.split(',')]
+    print(args)
     # check path validity and user Regex Validity
     path_type = check_path(args.path)
     if args.no_regex:
@@ -185,7 +189,7 @@ def main():
                             regex=args.regex
                             )
         # populate all lint rules including user lint rule
-        lint_rules = populate_rules(user_lint_rule, args.exclude)
+        lint_rules = populate_rules(user_rule=user_lint_rule, to_exclude=args.exclude)
     # add LintInventory objects to inventories list
     if path_type == 'file':
         inventory = LintInventory(args.path)
@@ -195,9 +199,14 @@ def main():
         for path, folders, files in os.walk(args.path):
             if 'group_vars' not in path:
                 for file in files:
-                    inventory = LintInventory(os.path.join(path, file))
-                    error_exists = test_lint_rules(inventory, lint_rules)
-                    inventories.append(inventory)
+                    # check if inventory file is supposed to be excluded from testing
+                    for file_pattern in args.exclude_invs:
+                        if to_skip := file_pattern.match(file.lower()):
+                            break
+                    if not to_skip:
+                        inventory = LintInventory(os.path.join(path, file))
+                        error_exists = test_lint_rules(inventory, lint_rules)
+                        inventories.append(inventory)
     # iterate over inventories list and print errors
     for inv in inventories:
         print(f'\n{bcolors.BOLD}{inv.file}{bcolors.ENDC}')
