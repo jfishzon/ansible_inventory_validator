@@ -174,8 +174,10 @@ def main():
                             )
     args = arg_parser.parse_args()
     args.exclude = [rule_num for rule_num in args.exclude.split(',')]
-    args.exclude_invs = [re.compile(f'.*{inv_pattern}.*') for inv_pattern in args.exclude_invs.split(',')]
-    print(args)
+    if args.exclude_invs:
+        args.exclude_invs = args.exclude_invs.split(',')
+    else:
+        to_skip = False
     # check path validity and user Regex Validity
     path_type = check_path(args.path)
     if args.no_regex:
@@ -201,7 +203,8 @@ def main():
                 for file in files:
                     # check if inventory file is supposed to be excluded from testing
                     for file_pattern in args.exclude_invs:
-                        if to_skip := file_pattern.match(file.lower()):
+                        full_path = os.path.join(path,file)
+                        if to_skip := file_pattern in full_path:
                             break
                     if not to_skip:
                         inventory = LintInventory(os.path.join(path, file))
