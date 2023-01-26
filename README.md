@@ -26,23 +26,23 @@
   Please note that general-all will only show the first error it found per linting rule.
   Feel free to use the fail inventories under the inventories folder for testing.
   ## Parameters
-  * **--path** <path_to_folder/path_to_file>  
+  **--path** <path_to_folder/path_to_file>  
   Description: Specify a path to either a folder (which contains inventories) or an inventory file.  
   Required: True
 
-  * **--regex** <regex to apply>  
+  **--regex** <regex to apply>  
   Description: pass a valid regex to apply on your hostnames.
   Required: False
   
-  * **--exclude-invs** <inventories,comma,seperated>  
+  **--exclude-invs** <inventories,comma,seperated>  
   Description: specify which inventories to exclude  
   Required: False
   
-  * **--exclude** <rulenum,comma,separated>  
+  **--exclude** <rulenum,comma,separated>  
   Description: specify which lint rules to exclude by their number (E.G. 400,200, etc..)  
   Required: False
   
-  * **--no-regex**  
+  **--no-regex**  
   Description: a flag to specify not to use the default regex for hosts or your own.  
   Required: False
   
