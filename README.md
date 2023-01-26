@@ -35,7 +35,7 @@
   Default: ^[a-zA-Z]*-[a-zA-Z]*-[0-9]{2}\.[a-zA-Z]*\.[a-zA-Z]*$  
   Required: False
   
-  * **--exclude-invs** <inventories,seperated,by,comma>  
+  * **--exclude-invs** <inventories,comma,seperated>  
   Description: specify which inventories to exclude  
   Required: False
   
