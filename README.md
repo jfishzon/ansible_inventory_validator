@@ -51,6 +51,14 @@
   ## Examples:
   
   Folder structure:
+  ``` bash
+  └── etc
+    └── ansible
+      └── inventory
+        ├── all_servers.ini
+        ├── database_servers.ini
+        └── web_servers.ini
+  ```
   ##### | etc
   ##### || ansible
   ##### ||| inventory
