@@ -63,8 +63,8 @@
   - ansible_inventory_validator.py --path /etc/ansible/inventory/all_servers.ini
   
   `validate a specific inventory / folder with inventories with your own regex`
-  `- ansible_inventory_validator.py --path /etc/ansible/inventory/ --regex [0-9]{2}-[a-zA-Z]*\.com
-  - ansible_inventory_validator.py --path /etc/ansible/inventory/all_servers.ini --regex [0-9]{2}-[a-zA-Z]*\.com`
+  - ansible_inventory_validator.py --path /etc/ansible/inventory/ --regex [0-9]{2}-[a-zA-Z]*\.com
+  - ansible_inventory_validator.py --path /etc/ansible/inventory/all_servers.ini --regex [0-9]{2}-[a-zA-Z]*\.com
   
   `disable default/user regex linting`
   - ansible_inventory_validator.py --path /etc/ansible/inventory/ --no-regex
