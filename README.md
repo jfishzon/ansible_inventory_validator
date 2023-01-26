@@ -3,11 +3,7 @@
   - Python 3.10
   ## Description:
   The Ansible INI Inventory Validator lets you make sure that the inventory is up to standard using your own regex and linting rules.
-  You can use the default linting rules, add, or use your own linting rules. The linting rules are based on regex and are separated to 4 different categories:
-  - general-all: apply regex to the entire inventory as 1 big string
-  - general-line: apply regex to each line in the inventory
-  - group: apply regex to each group name in the inventory (not including var groups)
-  - host: apply regex to each host in the inventory
+  You can use the default linting rules, add, or use your own linting rules.
   
   If you don't want to specify your own regex, the default regex of:  
   `^[a-zA-Z]*-[a-zA-Z0-9]*-[\[]?[0-9]{2}[:]?[0-9]{0,2}[\]]?\.[a-zA-Z0-9-]*\.[a-zA-Z]*[\s]*$`  
@@ -51,7 +47,29 @@
   Description: a flag to specify not to use the default regex for hosts or your own.  
   Required: False
   
+  ## Adding custom rules
+  The linting rules are based on regex and are separated to 4 different categories:
+  - general-line: apply regex to each line in the inventory
+  - general-all: apply regex to the entire inventory as 1 big string
+  - group: apply regex to each group name in the inventory (not including var groups)
+  - host: apply regex to each host in the inventory
 
+  When you're adding custom rules, make sure to test them beforehand and add them to the correct rules folder.
+  When naming the rule, please make sure to follow the correct naming scheme:
+  - general-line: uses numbers between 100 to 199
+  - general-all: uses numbers between 200-299
+  - group: uses numbers between 300-399
+  - host: uses numbers between 400-499
+
+  As well, specify the correct rule level:
+  - ERROR: at the end of the program, will exit with error code.
+  - WARN: at the end of the program, will exit normally (code 0)
+  Therefore, when creating a new rule, make sure not to use the same rule numbers that already exist, and stay within the correct number category, and rule level (error, warn)
+  It's also important that the rule name is descriptive of the issue, and utilizes underscores instead of spaces.
+  for example, a new general-line rule file name that should raise an error should look like so:   
+  `(102)ERROR_SPECIAL_SYMBOL_IN_LINE`   
+  and should be placed under rules/general-line
+  
   ## Examples:
   
   Folder structure:
