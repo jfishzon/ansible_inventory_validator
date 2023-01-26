@@ -12,6 +12,7 @@
   If you don't want to specify your own regex, the default regex of:  
   `^[a-zA-Z]*-[a-zA-Z0-9]*-[\[]?[0-9]{2}[:]?[0-9]{0,2}[\]]?\.[a-zA-Z0-9-]*\.[a-zA-Z]*[\s]*$`  
   will be applied.  
+  
   This makes sure your hosts are up to standard in the following format:
   #### EXAMPLE 1:
   - prefix-servername-01.domain.com
