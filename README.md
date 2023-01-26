@@ -31,8 +31,7 @@
   Required: True
 
   * **--regex** <regex to apply>  
-  Description: pass a valid regex to apply on your hostnames.  
-  Default: ^[a-zA-Z]*-[a-zA-Z]*-[0-9]{2}\.[a-zA-Z]*\.[a-zA-Z]*$  
+  Description: pass a valid regex to apply on your hostnames.
   Required: False
   
   * **--exclude-invs** <inventories,comma,seperated>  
