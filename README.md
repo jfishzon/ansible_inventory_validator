@@ -13,14 +13,14 @@
   `^[a-zA-Z]*-[a-zA-Z0-9]*-[\[]?[0-9]{2}[:]?[0-9]{0,2}[\]]?\.[a-zA-Z0-9-]*\.[a-zA-Z]*[\s]*$`  
   will be applied.  
   
-  This makes sure your hosts are up to standard in the following format:
-  #### EXAMPLE 1:
+  This makes sure your hosts are up to standard in the following format:  
+  **EXAMPLE 1**
   - prefix-servername-01.domain.com
   - ...
   - ...
   - prefix-servername-99.domain.com
   
-  #### EXAMPLE 2:
+  **EXAMPLE 2**
   - prefix-servername-[01-99].domain.com
   
   
