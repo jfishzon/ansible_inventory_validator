@@ -1,9 +1,0 @@
-Hello everybody
-Today I'll be introducing my CS50P project, ansible inventory validator.
-For a short intro, Ansible is a configuration management program which uses inventories and playbooks to deploy or make changes on servers.
-very often, the inventories will be in INI format, thus my program validates ini ansible inventories.
-The purpose of this project is to catch validation errors on inventories and let you know if your inventories are formatted correctly.
-
-Here's an example of a working inventory
-lets try to validate it.
-Here's an example of a failing inventory with an imposible group in
