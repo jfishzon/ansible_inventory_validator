@@ -63,7 +63,7 @@
 
   As well, specify the correct rule level:
   - ERROR: at the end of the program, will exit with error code.
-  - WARN: at the end of the program, will exit normally (code 0)
+  - WARN: at the end of the program, will exit normally (code 0)   
   Therefore, when creating a new rule, make sure not to use the same rule numbers that already exist, and stay within the correct number category, and rule level (error, warn)
   It's also important that the rule name is descriptive of the issue, and utilizes underscores instead of spaces.
   for example, a new general-line rule file name that should raise an error should look like so:   
