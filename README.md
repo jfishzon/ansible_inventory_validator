@@ -53,11 +53,11 @@
   Folder structure:
   ``` bash
   └── etc
-    └── ansible
-      └── inventory
-        ├── all_servers.ini
-        ├── database_servers.ini
-        └── web_servers.ini
+      └── ansible
+          └── inventory
+              ├── all_servers.ini
+              ├── database_servers.ini
+              └── web_servers.ini
   ```
   
   `basic usage on folder / specific inventory`:
