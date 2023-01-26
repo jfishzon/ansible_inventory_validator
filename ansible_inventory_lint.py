@@ -174,6 +174,7 @@ def main():
                             )
     args = arg_parser.parse_args()
     args.exclude = [rule_num for rule_num in args.exclude.split(',')]
+    # check for inventory files exclusions
     if args.exclude_invs:
         args.exclude_invs = args.exclude_invs.split(',')
     else:
