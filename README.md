@@ -15,14 +15,16 @@
   
   This makes sure your hosts are up to standard in the following format:  
   **EXAMPLE 1**
-  - prefix-servername-01.domain.com
-  - ...
-  - ...
-  - prefix-servername-99.domain.com
-  
+  ``` bash
+  prefix-servername-01.domain.com
+  ...
+  ...
+  prefix-servername-99.domain.com
+  ```
   **EXAMPLE 2**
-  - prefix-servername-[01-99].domain.com
-  
+  ```bash
+  prefix-servername-[01-99].domain.com
+  ```
   
   You can validate a directory with inventories or 1 inventory by itself.
   The program won't pause on each failed file, but instead will tell you the errors found in each file at the end of the process.
