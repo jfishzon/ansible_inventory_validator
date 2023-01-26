@@ -59,12 +59,6 @@
         ├── database_servers.ini
         └── web_servers.ini
   ```
-  ##### | etc
-  ##### || ansible
-  ##### ||| inventory
-  ##### |||| all_servers.ini
-  ##### |||| web_servers.ini
-  ##### |||| database_servers.ini
   
   `basic usage on folder / specific inventory`:
   - ansible_inventory_validator.py --path /etc/ansible/inventory/
