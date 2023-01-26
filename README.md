@@ -30,7 +30,7 @@
   Description: Specify a path to either a folder (which contains inventories) or an inventory file.  
   Required: True
 
-  * **--regex** <Regex to apply>  
+  * **--regex** <regex to apply>  
   Description: pass a valid regex to apply on your hostnames.  
   Default: ^[a-zA-Z]*-[a-zA-Z]*-[0-9]{2}\.[a-zA-Z]*\.[a-zA-Z]*$  
   Required: False
